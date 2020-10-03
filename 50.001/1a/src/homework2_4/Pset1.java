@@ -35,7 +35,7 @@ public class Pset1 {
 //        return true;
 //    }
 
-    public static boolean isPermutation(String sIn1, String sIn2) {
+    public static boolean isPermutation(String sIn1, String sIn2) { // mergesort implementation
         if (sIn1.length() != sIn2.length()) return false;
 
         int[] array1 = new int[sIn1.length()];
@@ -52,14 +52,9 @@ public class Pset1 {
         array1 = mergeSort(array1);
         array2 = mergeSort(array2);
 
-        for (int i: array1) {
-            System.out.println(i);
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != array2[i]) return false;
         }
-
-        for (int j: array2) {
-            System.out.println(j);
-        }
-
 
         return true;
     }
