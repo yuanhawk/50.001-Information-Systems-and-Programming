@@ -83,10 +83,6 @@ Logical Operators
 ! Not
 ```
 
-
-#### Casting Methods
-
-
 ## static method
 static fields / static methods belong to the class, aka class fields / class methods
 
