@@ -55,12 +55,12 @@ String formatting
 \n - New line, \t - tab, \r - Return, \" - Backslash
 ```
 
-####Java most widely used packages<br>
+#### Java most widely used packages<br>
 java.lang - Fundamental class for primitive data types & strings<br>
 java.util - Utility class, includingthose for getting input fr console<br>
 java.text - Classes that handle text, format numbers and dates<br>
 
-####Common class<br>
+#### Common class<br>
 java.lang.String<br>
 java.lang.Integer<br>
 java.lang.Double<br>
