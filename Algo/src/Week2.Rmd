@@ -1,0 +1,370 @@
+---
+title: "Week 2"
+author: "Tan Li Yuan"
+date: "10/13/2020"
+output: html_document
+---
+
+### Intro to Algo Lecture 2-1
+
+Sorting<br>
+Insertion sort $O$(n^2^)<br>
+Merge sort $O$(n log n) by divide and conquer
+
+Analyze complexity of recursions<br>
+By expansion: the recursion tree method<br>
+By induction: the substitution method
+
+In-place sort - sorted item occupy the same storage as the original one<br>
+Out-of-space sort - sorting algo used extra space to do sorting
+
+```
+INSERTIONSORT(A)
+START
+  FOR i = 1 to n
+  	WHILE A[i] < A [i -1]
+  		swap A[i] with A[i-1]
+  		i -= 1
+  	ENDWHILE
+  ENDFOR
+END
+
+SWAP(A, i)
+START
+  temp <-- A[i]
+  A[i] <-- A[i-1]
+  A[i-1] <-- temp
+END
+```
+
+Worst-case running time $T$(n) on an input of size n
+
+$T$(n) = $\frac{n(n-1)}{2}$ = $\Theta$(n^2^)
+
+Divide and conquer solution<br>
+- Divide input into parts (smaller problems)<br>
+- Conquer (solve) each part recursively<br>
+- Combine results to obtain solution of original
+
+$T$(n) = divide time [$\Theta$(n)]<br>
+\t+ T(n~1~) + T(n~2~) + ... + T(n~k~) [2$T$(n/2)]<br>
+\t + combine time [$\Theta$(n)]
+
+$T$(n) = 2$T$(n/2) + $\Theta$(n)
+
+```
+MergeSort(A)
+START
+IF n = 1 THEN
+  done -> return
+ENDIF
+RECURSIVE_SORT A[:n/2] --> L
+RECURSIVE_SORT A[n/2:] --> R
+merge L & R --> output A'
+END
+```
+
+```
+MERGESORT(a)
+START
+  IF n == 1 THEN
+    RETURN a
+
+   l1 <-- a[0] ... a[n/2]
+   l2 <-- a[n/2+1] ... a[n]
+
+   l1 <-- call: MERGESORT(l1)
+   l2 <-- call: MERGESORT(l2)
+
+   RETURN MERGE(l1, l2)
+END
+
+MERGE(a, b)
+START
+  c <-- []
+  WHILE a and b have elements
+    IF a[0] > b[0] THEN
+      add b[0] to the end of c
+      remove b[0] from b
+    ELSE
+      add a[0] to the end of c
+      remove a[0] from a
+    ENDIF
+  ENDWHILE
+     
+  WHILE a has elements
+    add a[0] to the end of c
+    remove a[0] from a
+  ENDWHILE
+  
+  WHILE b has elements
+    add b[0] to the end of c
+    remove b[0] from b
+  ENDWHILE
+  
+  RETURN c
+END
+```
+
+### Intro to Algo Lecture 2-2
+
+The recursion tree = sum of cost of nodes
+
+$T$(n) = 2$T$(n/2) + cn<br>
+Sum of each level and then sum all levels
+$T$(n) = n$T$(1) + cn log n $\Theta$(nlogn)
+
+$T$(n) = $T$(n/2) + cn<br>
+$T$(n)
+= cn + cn/2 + cn/4 + …. + 1
+= cn (1 + ½ + ¼ + …. + 1/2logn)
+= cn (2)
+= Θ(n)
+
+### Master Theorem
+Sum of each value in each level is the same, Total value = $\Theta$(no. of levels * sum of each lvl)<br>
+Each level's value is decreasing, Total value = $\Theta$(root node's value)<br>
+Each level's value  is increasing, Total value = $\Theta$(no. of leaves)
+
+*$T$(n) = a $T$(n / b) + f(n)*
+
+*No. of lvl = log~b~(n) = $\Theta$(log n)*<br>
+*No. of leaves = a^log~b~(n)^ = n^log~b~(a)^*
+
+
+1. value of each lvl is geometrically increasing down the tree<br><br>
+if f(n) = $O$(L^1-$\epsilon$^) = $O$(n^log~b~(a)-$\epsilon$^)<br>
+$T$(n) = $\Theta$(L) = $\Theta$(n^log~b~(a)^)<br>
+Note: dominant no. of leaves<br><br>
+log(n) --> log(n/2) --> log(n/4) --> ... --> log(n / 2^k^) --> c<br><br>
+No. of leaves increasing down the tree (dominant)<br>
+f(n) = $O$(L^1-$\epsilon$^) = $O$(n^log~b~(a)-$\epsilon$^)<br>
+T(n) = $\Theta$(n^log~b~(a)^) = $\Theta$(n)
+
+2. value of each lvl are equal *Height $\times$ Leaves*<br><br>
+f(n) = $\Theta$(L) = $\Theta$(n^log~b~(a)^)
+T(n) = $\Theta$(L log n) = $\Theta$(n^(log~b~(a)^ log(n)) = $\Theta$(n log n), a = b = 1<br><br>
+n --> n/2 --> n/4 --> ... --> n/2^k^ --> c<br>
+T(n) = $\Theta$(L log n) = $\Theta$(n^log~b~(a)^ log n)
+
+3.  value of each is lvl is geometrically decreasing down the tree<br><br>
+f(n) = $\Omega$(L^1+$\epsilon$^) = $\Omega$(n^(log~b~(a)+$\epsilon$^)<br>
+$T$(n) = $\Theta$(f(n))<br>
+Note: dominant node<br><br>
+n^2^ --> (n/2)^2^ --> (n/4)^2^ --> ... --> (n/2^k^)^2^ --> c<br>
+n^2^ is significantly bigger than n log n
+
+#### Exercise 1 (Case 1)
+> $T$(n) = 9$T$(n/3) + n<br><br>
+> a = 9, b = 3, f(n) = n<br>
+> height = log~3~(n); leaves = 9^log~3~(n) = n^log~3~(9)^ = $\Theta$(n^2^)<br>
+> Note: height = log~b~(n) (b^height^ = n), #leaves = a^log~b~(n)^ = n^log~b~(a)^<br><br>
+> Since f(n) = $O$(n^log~3~(9-$\epsilon$)^) where $\epsilon$ = 1
+> $T$(n) = $\Theta$(#leaves) = $\Theta$(n^2^)
+
+#### Exercise 2 (Case 2)
+> $T$(n) = $T$(2n/3) + $\Theta$(1)<br><br>
+> a = 1, b = 3/2, f(n) = 1<br>
+> height = log~(3/2)~(n); leaves = log~3/2~(n) = n^log~3/2~(1)^ = n^0^ = $\Theta$(1)<br><br>
+> f(n) = $\Theta$(n^log~(3/2)~(1)^)<br><br>
+> $T$(n) = $\Theta$(n^log~(3/2)~(1)^ log n = $\Theta$(log n)
+
+#### Exercise 3 (Case 3)
+> $T$(n) = 3$T$(n/4) + n log n<br><br>
+> a = 3, b = 4, f(n) = n log n<br>
+> height = log~4~(n); #leaves = 3^log~4~(nlogn)^ = n^log~4~(3)^ $\approx$ n^0.793^<br><br>
+> f(n) = $\Omega$(n^log~4~(3+$\epsilon$)^) where $\epsilon$ 0.2<br>
+> AND af(n/b) = 3f(n/4) = 3/4n log(n/4) <= cn log n, for c = 3/4 (regularity condition)<br>
+> check if value is decreasing, if c < 1 and cn log n dominates 3/4n log(n/4)<br>
+> $T$(n) = $\Theta$(f(n)) = $\Theta$(n log n)
+
+#### Exercise 4 (Case 2)
+> $T$(n) = 4$T$(n/2) + n^2^<br>
+> a = 4, b = 2, f(n) = n^2^<br>
+> height = log~2~(n), #leaves = 4^log~2~(n)^ = n^log~2~(4)^ = n^2^<br><br>
+> f(n)  = $\Theta$(n^2^)<br>
+> $T$(n) = $\Theta$(n^2^ log n)
+
+#### Exercise 5 (Case 3)
+> $T$(n) = 7$T$(n/3) + $\Theta$(n^2^)<br>
+> a = 7, b = 3, f(n) = n^2^<br>
+> height = log~3~(n), #leaves = 7^log~3~(n)^ = n^log~3~(7)^<br><br>
+> f(n) = $\Omega$(n^log~3~(7+$\epsilon$)^), where $\epsilon$ $\approx$ 0.229<br><br>
+> Since af(n/b) = 7f(n/3) = 7(n/3)^2^ = 7/9n^2^ <= cn^2^, for c = 7/9 (regularity condition)<br><br>
+> $T$(n) = $\Theta$(n^2^)
+
+#### Exercise 6 (Unable to resolve using Master Theorem, use recursive tree)
+> $T$(n) = $T$(n - 1) + 2<br>
+> 2 --> 2 --> ... --> 2<br>
+> n --> n-1 --> 1
+> 2(n); $T$(n) = $\Theta$(n)
+
+
+### Intro to Algo Cohort 2-3
+
+Peak Finding Problem
+
+Neighbors < Peak element
+
+10, 13, 5, 8, 3, 2, 1
+
+```
+PEAKFINDER(A)
+START
+  IF A.length == 0 THEN //If list is 0, there is no peak
+    return NIL
+  ENDIF
+    
+  IF A.length == 1 THEN // If list has been reduced to 1 element, it's a peak
+    return A
+  ENDIF
+    
+  mid = A.length / 2
+  
+  left = mid - 1
+  right = mid + 1
+  
+  IF A[left] <= A[mid] >= A[right] THEN
+    RETURN A[mid]
+  ELSE IF A[mid] < A[left]
+    RETURN PEAKFINDER(A[:mid])
+  ELSE IF A[mid] < A[right]
+    RETURN PEAKFINDER(A[mid+1:])
+  ENDIF
+END
+```
+
+An element A[i] is a peak if it is not smaller than all its neighbor(s)
+
+```
+IF i != 1 THEN
+  n <-- A[1] >= A[i - 1] and A[i] >= A[i + 1]
+ELSE IF i = 1
+  A[1] >= A[2]
+ELSE IF i = n
+  A[n] >= A[n-1]
+ENDIF
+```
+
+13 & 8 are peaks
+
+Algo 1<br>
+Scan the array fr left to right<br>
+Compare A[i] with its neighbors<br>
+Exit when found a peak
+
+1, 2, 4, 8, 9, 12, 21
+
+Complexity:<br>
+Might need to scan all elements, so $T$(n) = $\Theta$(n)
+
+Algo 2<br>
+Consider the middle element of the array & compare with neighbors
+
+```
+IF A[n/2-1] > A[n/2] THEN
+  search for a peak among A[1]... A[n/2  - 1]
+ELSE IF A[n/2] < A[n/2 + 1]
+  search for a peak among A[n/2 + 1]...A[n]
+ELSE
+  A[n/2] is a peak! //since A[n/2 -1] <= A[n/2] and A[n/2] >= A[n/2 + 1]
+ENDIF
+```
+
+Complexity<br>
+$T$(n) = $T$(n/2) + $O$(1) *//Time for comparing A[n/2] with 2 neighbors*<br>
+$T$(n) <= $T$(n/2) + c <= ($T$(n/2^2^) + c) + c <= ...
+         <= $T$(n/2^log~2~(n)^) + c + c + ... + c = 1 + log~2~(n) = $O$(log n)
+
+Time to find peak in array of length n, O(1) time to find peak, $T$(n/2) cut array in half
+
+Divide and Conquer<br>
+Very powerful design tool:<br>
+Divide input into multiple disjoint parts<br>
+Conquer each of the parts separately (using recursive call)
+
+Peak finding: 2D<br>
+Consider a square 2D array A[1...n, 1...n]:<br>
+An element A[i] is a 2D peak if it is not smaller than its (at most 4 neighbors.<br>
+Problem: find any 2D peak
+
+Algo 1: brute-force method (i.e. search all squares)<br>
+Complexity = $\Theta$(n^2^)
+
+Algo 2:<br>
+a) For each col j, find global maximum B[j]: complexity = $\Theta$(n)<br>
+b) Apply 1D peak finder to find a peak of B[1...n] (say B[j]): complexity = $\Theta$(n^2^ + log n), log n to<br> find the peak
+
+Complexity = $\Theta$(n^2^ + log n) = $\Theta$(n^2^)
+
+Algo 3:<br>
+
+```
+Pick middle col j = n/2<br>
+Find global max  on col j, [i, j]<br>
+Compare A[i, n/2] to A[i, n/2 - 1]  A[i, n/2 + 1]<br>
+
+IF A[i, n/2] < A[i, n/2-1] THEN
+  pick left col j=[1...n/2]
+ELSE IF A[i, n/2] < A[i, n/2+1]
+  pick right col j = [n/2...n]
+ELSE IF A[i, n/2] >= A[i, n/2 -1] AND A[i, n/2] >= A[i, n/2+1]
+    A[i, j] is 2D peak
+```
+
+```
+PEAKFINDER(A, rows, cols, mid)
+START
+  max <-- 0
+  max, max_index <-- call: FINDMAX(A, rows, mid, max)
+  
+  IF mid == 0 OR mid == cols - 1 THEN // If on the first or last col, max is a peak
+    RETURN max
+  ENDIF
+  
+  IF max < A[max_index][mid - 1] // If max is less than left
+    RETURN FINDMAX(A, rows, cols, mid - (mid / 2))
+  ELSE IF max < A[max_index][mid + 1] // If max is less than right
+    RETURN FINDMAX(A, rows, cols, mid + (mid / 2))
+  ELSE IF max >= A[max_index][mid - 1] AND max >= A[max_index][mid + 1] // If max is more than left and right
+    RETURN max
+  ENDIF
+STOP
+
+FINDMAX(A, rows, mid, max)
+START
+  max_index <-- 0
+  FOR i = 0 to row
+    IF max < A[i][j] THEN // Find global max  on col mid, [i, mid]
+      max <-- A[i][mid]
+      max_index <-- i
+    ENDIF
+  ENDFOR
+END
+```
+
+Complexity = $T$(m/2) + $\Theta$(n) cost of finding the maximum in a col<br>
+$T$(n) = $T$(n/2) + $\Theta$(n) = $T$(n/4) + 2 * $\Theta$(n) = $T$(n/16) + 3 * $\Theta$(n)<br>
+         = log(n) $\Theta$(n) = $\Theta$(n log n)
+
+$\Theta$(n log m)
+
+1. $T$(n) = 3$T$(n/2) + n^2^<br>
+a = 3, b = 2, f(n) = n^2^<br>
+height = log~2~(n), #leaves = 3^log~2~(n)^ = n^log3^<br><br>
+Compare n^log3^ and n^2^<br>
+Complexity = $\Theta$(n^2^)
+
+2. $T$(n) = 9$T$(n/3) + n^2^<br>
+a = 9, b = 3, f(n) = n^2^<br>
+height = log~3~(n), #leaves = 9^log~3~(n)^ = n^log~3~(9)^ = n^2^<br><br>
+Complexity = $\Theta$(n^2^ log n)<br>
+
+3. $T$(n) = $T$(n/2) + 2^n^<br>
+a = 1, b = 2, f(n) = 2^n^<br>
+height = log~2~(n), #leaves = n^log~2~(1) = 1<br><br>
+Compare 2^n^ and 1<br>
+Complexity = $\Theta$(2^n^) < 2^n^ + 2^n^ = 2 * 2^n^ = $\Theta$(2^n^)<br><br>
+$T$(n) = 2^n^ + 2^(n/2)^ + ... + 2 + 1<br>
+2^k^ > 2^(k-1)^ + 2^(k-2)^ + ... + 2 + 1<br>
+(2^k^) - 1

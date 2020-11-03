@@ -1,0 +1,261 @@
+---
+title: "Week4"
+author: "Tan Li Yuan"
+date: "10/31/2020"
+output: html_document
+---
+
+### Intro to Algo 4-1
+
+Intro to Algo 4 - 1
+
+Binary Search Trees (BST)
+
+A (binary) heap is a data structure whose data storage format can be visualized as a binary tree
+
+This binary tree must be nearly complete, i.e. all possible nodes in level must be "filled", before the next level has any nodes
+
+(Your parent must have 2 children, if not you cannot have child)
+
+graph theory
+
+Types of heaps: max heap
+Max-heap property: key of every node >= keys of its children(if any)
+Min-heap property: ... <= ...
+
+d-ary trees
+d >= 2
+root, parent, ancestors, descendants
+
+BST - data structure whose data storage format can be visualized as a binary tree
+
+bst need not be nearly complete
+
+This tree is still binary! Every node has at most 2 children
+
+Data can be stored as an array or a linkedlist
+
+Every node must have 4 attributes: x.left, x.right, x.parent, x.key<br>
+attribute values - real vals
+
+if x is the root, then x.parent = NIL, if y has no right child, then y.right = NIL
+
+BST must satisfy:
+
+if x.left != NIL, y.key <= x.key<br>
+x.right != NIL, x.key <= z.key
+
+y.key <= x.key <= z.key
+
+x (parent), y (left child), z (right child)
+
+How to order the elements of a BST
+
+Tree traversals:<br>
+Pre-order FBADCEGIH<br>
+Traverse in the anti-clockwise order<br>
+Accessing the key vals in each node
+
+```
+Function PREORDER(node)
+  IF node = NIL, THEN
+      return
+  ENDIF
+  PRINT(node.key)
+  Call: PREORDER(node.left)
+  Call: PREORDER(node.right)
+ENDFunction
+```
+
+Running PREORDER(root node) will print the key vals of the nodes in pre-order.
+
+In-order (sorted order) ABCDEFGHI<br>
+Traverse in anti-clockwise order<br>
+When visiting an unrecorded node, record the node only if:<br>
+no left child / left child had been visited previously
+
+```
+Function INORDER(node):
+  IF node = NIL, THEN
+      return
+  ENDIF
+  Call: INORDER(node.left)
+  PRINT(node.key)
+  Call: INORDER(noderight)
+ENDFunction
+```
+
+Running inorder(root node) will print the key vals of the nodes in in-order
+
+Post-order 
+Traverse in anti-clockewise order ACEDBHIGF<br>
+When visiting an unrecorded node, record the node only if:<br>
+it is a leaf / last time visiting it
+
+```
+Function postorder(node):
+  IF node = NIL, THEN
+      return
+  ENDIF
+  Call: POSTORDER(node.left)
+  Call: POSTORDER(node.right)
+  PRINT(node.key)
+ENDFunction
+```
+
+BST is a data structure --> visualized as a bin tree, BST property is satisfied<br>
+A BST is allowed to be very "imbalanced" - not balanced
+
+unbalanced - unstable
+
+"balanced" BST called Adelson-Velskii and Landis (AVL) tree
+
+Similar to how heaps are used to implement priority queues & sorting algo, BSTs can also be used to implement priority queues & sorting algos
+
+Operations:
+tree_insert: Insert elements into BST must still be a BST after insertion $O$(height of T)<br>
+tree_delete: Delete ... $O$(height of T)<br>
+tree_max: Given element x, return element with largest key val in subtree rooted at x $O$(height of x)<br>
+tree_min: ... smallest ... $O$(height of x)<br>
+tree_search: Given element x and a val k, return 1st of an element with a key val k in the subtree rooted at x, if it exists, otherwise return NIL O(height of T)
+
+x element of BST<br>
+left n right nodes to find key val k
+
+successor: Given element x, return the next element in the next element in the BST wrt the in-order<br>
+predecessor: ... previous ...
+
+```
+TREE_INSERT(T, x)<br>
+BST T, element x<br>
+Assumptions: x.key != NILL; x.left = x.right = NIL
+
+Function TREE_INSERT(T, x)
+  y <-- Call: FIND_Y() // element in T that is available to be the parent of x (identify suitable parent of x)
+  x.parent <-- y
+  IF T.root = NIL THEN (empty tree)
+      T.root <-- x
+  ELSE IF x.key < y.key
+      y.left <-- x
+  ELSE
+      y.right <-- x
+  ENDIF
+ENDFunction
+
+Function FIND_Y()
+  y <-- NIL; z <-- T.root (if T has >= 1, T.root has element, else NIL)
+  WHILE z != NIL (z will be NIL, when z is a leaf)
+    y <-- z (y being the root node of z, update y in the loop, y is the parent candidate for x)
+    IF x.key < z.key THEN (the val of x will determine how deep we go fr the root into the BST) 
+        z <-- z.left
+    ELSE
+        z <-- z.right
+    ENDIF
+  ENDWHILE
+ENDFunction
+```
+
+### Intro to Algo 4-2
+
+More on Binary Search Trees
+
+a, b, c, d, e, f<br>
+10, 12, 5, 1, 6, 7
+
+tree_insert(T, k)
+
+Return the largest/smallest key val<br>
+```
+Function TREE_MAX(x)
+  WHILE x.right != NIL
+      x <-- x.right
+  ENDWHILE
+  RETURN x
+ENDFunction
+```
+```
+Function TREE_MIN(x)
+  WHILE x.left != NIL
+      x <-- x.left
+  ENDWHILE
+  RETURN x
+ENDFunction
+```
+Find the first instance of an element with key val k, else return NIL
+```
+Function TREE_SEARCH(x, k):
+  WHILE x != NIL and k != x.key
+      IF k < x.key THEN
+          x <-- x.left
+      ELSE
+          x <-- x.right
+      ENDIF
+  ENDWHILE
+  RETURN x
+ENDFunction
+```
+
+Return the next element in BST wrt in-order
+```
+Function SUCCESSOR(x)
+  IF x.right != NIL THEN
+    RETURN TREE_MIN(x.right)
+  ENDIF
+  y <-- x.parent
+  WHILE y != NIL and x = y.right
+      x <-- y
+      y <-- y.parent
+  ENDWHILE
+  RETURN y
+ENDFunction
+```
+
+successor(g) = a
+
+Return the previous element in BST wrt in-order
+```
+Function PREDECESSOR(x)
+  IF x.left != NIL THEN
+      RETURN TREE_MAX(x.left)
+  ENDIF
+  y <-- x.parent
+  WHILE y != NIL and x = y.left
+      x <-- y
+      y <-- y.parent
+  ENDWHILE
+  RETURN y
+ENDFunction
+
+```
+
+successor(x): Given element x, return the next element in the BST wrt the in-order. $O$(depth of x)<br>
+predecessor(x): ..., return the previous ... $O$(depth of x)
+
+Delete element x so that the BST property still holds<br>
+TREE_DELETE(T, x)<br>
+Case 1: x is a leaf > remove x<br>
+Case 2: x has exactly 1 child <br>
+Case 2a: left child<br>
+Case 2b: right child<br>
+If we "promote" the child of x to replace x, the BST property still holds.<br>
+If x = z.left, then z.left <-- y OR If z = z.right, then z.right <-- y<br>
+y.parent <-- z
+
+Case 3: x has exactly 2 children<br>
+z to be the suitable replacement for x, chosen form among the descendants of x
+
+elements at z-subtree >= y-subtree
+
+Case 3a: x.right has no left child<br>
+"promote" x.right to replace x, shift x.left to be the child of x
+
+Case 3b: x.right has a left child<br>
+Let y = successor(x), x' = x.right, and y' = y.right<br>
+"promote" y, "promote" y.right node (-subtree) to previous y position
+
+1. successor(z), z is the last element in the in-order<br>
+successor(z) = NIL<br>
+z is the input, last element (tree_max), most right, so z.right = NIL, returns NIL
+
+2. tree_insert(T, x). Why is there an assumption x.left = x. right = NIL<br>
+If there is an existing child, the fulfillment of BST would require all the child nodes of x to be checked, and this might not be fulfilled.

@@ -1,0 +1,373 @@
+---
+title: "Week 3"
+author: "Tan Li Yuan"
+date: "10/14/2020"
+output: html_document
+---
+
+### Intro to Algo Lecture 3-1
+
+What is a heap?
+
+Master theorem - recursive algorithm A, determine the algorithmic complexity<br>
+$T$(n) = number of steps that A take to run an input of size n
+
+Levels of a recusive algo<br>
+Run "awesome" function
+
+$T$(n) - number of steps A takes to run an input of size n<br>
+f(n) - number of steps taken in the first lvl of recursion
+
+How to use master theorem?<br>
+Figure out the recurrence relation<br>
+$T$(n) = aT(n/b) + f(n)
+
+a - number of sublist
+b - size of sublist
+
+Case 1:
+
+> $O$(n^log~b~(a)^ - $\epsilon$)<br>
+> $T$(n) = $\Theta$(n^log~b~(a)^)
+
+Case 2:
+
+> $\Theta$(n^log~b~(a)^)<br>
+> $T$(n) = $\Theta$(n^log~b~(a)^)
+
+Case 3:
+
+> $\Omega$(n^log~b~(a)^ + $\epsilon$)<br>
+> if af(n/b) <= cf(n) for some constant c < 1 and all sufficiently large n, then we conclude $T$(n) = $\Omega$(f(n))<br>
+> Otherwise, the case is inconclusive
+
+Note: height = log~b~(n) = $\Theta$(log n)*, #leaves = a^log~b~(n)^ = n^log~b~(a)^
+
+Example 1:
+
+> $T$(n) = 2 $T$(n/2) + log n<br><br>
+> f(n) = $O$(n^log~b~(a)^ - $\epsilon$) = $O$(n^1^ - $\epsilon$)<br>
+> log n = $O$(n^1^ - $\epsilon$)<br>
+> Yes, so master theorem says that T(n) = theta(n)
+
+Example 2:
+
+> $T$(n) = 5 $T$(n/5) + n<br>
+> height = log~5~(n), #leaves = n^log~5~(5) = n<br><br>
+> f(n) = $\Theta$(n log~b~(a)). so $T$(n) = $\Theta$(n^log~b~(a)^ log n) = $\Theta$(n log n)
+
+Example 3:
+
+> $T$(n) = 9$T$(n/3) + n^3^<br>
+> height = log~3~(n), #leaves = n^log~3~(9)^ = n^2^<br><br>
+> f(n) = $\Omega$(n^2^ - $\epsilon$)<br>
+> 9f(n/3) = 1/3n^3^ <= 1/2 n^3^ = 1/2 f(n)<br><br>
+> Master theorem says that $T$(n) = $\Theta$(f(n)) = $\Theta$(n^3^)
+
+Data type vs abstract data type<br>
+Matrix data type ignores the specific implementation of associated operations
+
+Abstract data type is an abstract mathematical model for objects of a certain type of data, tgt with operations on such objects
+
+Data structures - format to store and organize data, in order to facilitate access and modifications<br>
+Use a data structure to implement a data type or ADT
+
+Matrix - 2D array or a list of lists, build new data structures
+
+Heap - data structure, store & organize data, in order to facilitate access and modification<br>
+Heaps are built fr array data structure<br>
+Heaps are NOT arrays
+
+Operations associated to the heap are called heap operations<br>
+Implement priority queue - an abstract data type (ADT) that consists of a set S of elements
+
+Every element of S has an associated key, interpreted as "priority score"<br>
+max: return element with largest key<br>
+insert: insert element x<br>
+extract_max: return & extract element with the largest key<br>
+increase_key: increase val of key of element x to the new value k<br>
+
+Priority queue<br>
+(Array 1): Store the element of S in the order they arrive<br>
+(Array 2): Store the elements of S insertion in descending order
+
+Heap can be visualized as a nearly complete binary tree<br>
+A binary tree is a tree in which every node has at most children
+
+The top node is called the root<br>
+The nodes below are called the children of node x
+
+A node with no children is called a leaf
+
+In all levels, except the last level, every node has 2 children
+
+Are pointers needed. A[1] is the 1st element
+
+Max heap: the key of every node is >= to the keys of its children<br>
+Min heap: the key of every node is <= to the keys of its children
+
+Other kinds of heaps:<br>
+Ternary/d-ary heaps: at most 3/m children
+
+Binary max heaps: negate all keys could give the opposite min or max
+
+Depth of a node x in a binary tree is the number of edges in the downward path from the root to node x
+
+Depth is a binary tree is the max value among the depths of all nodes in the binary tree
+
+Depth of a heap is the dpeth of the binary tree corresponding to the heap
+
+Height of a node is the max possible number of edges in a downward path fr the node x to a leaf
+
+Root of tree: first element in the array, corresponding to index i = 1<br>
+parent(i) = [i/2] -> parent(5) = 2 (floor)<br>
+left(i) = 2i, right(i) = 2i + 1
+
+No pointers required to implement a heap<br>
+Depth of a binary heap with n element is log~2~(n)<br>
+log~2~(10) = 3.3 = 3<br>
+Depth of heap = $\Theta$(log n)<br>
+Depth of node = $O$(log n)
+
+#### Operations on heaps
+build_max_heap: Build a max-heap from an unordered input array. Complexity: $O$(n)<br>
+max_heapify: Correct a single violation of the max heap property occuring at the root of an input sub-tree. Complexity: $O$(log n)<br>
+insert: insert element into array: array must remain as a max heap. Complexity: $O$(log n)<br>
+extract_max: Return element with the largest key and remove from array; array must remain as a max heap. Complexity: $O$(log n)<br>
+increase_key: Increase key values of node with given input index; array must remain as a max heap. Complexity: $O$(log n)<br>
+heapsort: Sort an array of length n using a heap.<br>
+Complexity: $O$(n log n)
+
+### Intro to Algo Lecture 3-2
+
+Heap operations<br>
+Heap-sort algo
+
+
+i/p? assumptions for our i/p<br>
+o/p?<br>
+mods to i/p?
+
+Make mods to i/p array<br>
+Make extract_max - return element with largest key & remove fr array; array must remain as a max heap
+
+How to "heapify" an array<br>
+Given an array that violates the max-heap property, how do we modify the array into a heap
+
+Node i violates the max-heap property (for nearly complete binary tree visualization)<br>
+Key of every node >= keys of its children (if any)
+
+Node can hv a left child
+
+Children of node i, tgt with all nodes below, do not violate the max-heap property<br>
+Sub-trees rooted at nodes left(i) and right(i): 2i, 2i + 1
+
+Correct the violation of the max-heap
+
+A[i] is strictly smaller than >= 1 of A[left(i)] or A[right(i)]
+
+Heapify by "trickling" element A[i] down the tree, making the subtree rooted at the new node i correspond to heap-tree
+
+```
+MAX_HEAPIFY(A, 2) - Array A, 2 children
+START
+  // Swap with the larger child key
+  // Input array A has an attribute called heap_size
+  // Init A.heap_size <- A.length
+  // Set A.heap_size <- k on the first k elements of the array.
+  
+  l <-- left(i) // 2i
+  r <-- right(i) // 2i + 1
+  
+  // l, r are indexes
+  
+  // Check which is the largest index
+  IF l <= heap_size(A), last index of A and A[l] > A[i] THEN
+    largest <-- l
+  ELSE
+    largest <-- i
+  ENDIF
+  
+  IF r <= heap-size(A) AND A[r] > A[largest] THEN
+    largest <-- r
+  ENDIF
+  
+  IF largest != i THEN // violation of max-heap property
+    exchange A[i] and A[largest]
+    call: MAX_HEAPIFY(A, largest)
+  ENDIF
+END
+```
+```
+BUILDMAXHEAP(A)
+START
+// Correct violations of Max_Heap property
+// Nodes[n/2] + 1, ..., n must be leaves of the tree
+// Since 2i > n for all i >= [n/2] + 1
+// if 2i > n, then node i has no left child (which must have index 2i)
+// max-heap property can only be violated at 1, ..., n/2
+
+A.heap_size <- A.length
+FOR i = length[A] /2 to 1
+  call: MAXHEAPIFY(A, i)
+ENDFOR
+END
+```
+Complexity = $O$(n): Line 1 = $O$(1), Line 2 (entire for loop) = $O$(n)
+
+max_heapify(A, 5), no changes<br>
+max_heapify(A, 4), swap 4 and 8<br>
+max_heapify(A, 3) swap 3 and 7<br>
+max_heapify(A, 2) swap 2 and 5<br>
+max_heapify(A, 5) swap 5 and 10<br>
+max_heapify(A, 1) swap 1 and 2<br>
+max_heapify(A, 2) swap 2 and 4<br>
+max_heapify(A, 4) swap 4 and 8
+
+Algorithmic complexity<br>
+$T$(n) = $O$(n)
+
+Insertion sort
+```
+last <-- A.length
+Find max element A[i] of array A[1...last ele];     theta(n), expensive step
+Swap A[i] and A[last]
+last_el <- last_el - 1
+Go to step 2
+```
+
+Heapify array
+
+1. Build a max heap fr A, A.heap_size is init with n
+2. Find max element A[1]
+3. Swap elements A[A.heap_size] and A[1]
+4. Discard node n from the heap (setting A.heapsize <- A.heapsize - 1)
+5. new root may violate max-heap property, but the children are the roots of sub-trees that are max-heap property at the new root
+6. Go to step 2
+
+I/p: array A of len(n)<br>
+
+* Every iteration (Steps 2 - 5). Heap_size decreases by 1
+* After n iterations, the heap size of A becomes 0
+* Every iteration involves a swap and a max_heapify
+* Each swap has complexity of $O$(1)
+* * Each max_heapy has complexity $O$(log n)
+* heap-sort $O$(n log n)
+
+insert(A, x)<br>
+Insert x at the last node (leaf)<br>
+Compare it with the parent node n check if max heap property is violated
+
+Number of swaps is at most the depth of the binary heap, which is O(log n)
+
+extract_max(A)<br>
+move key of last node to the root node<br>
+Then do swaps to fulfill max heap property max_heapify O(log n)
+
+```
+INCREASEKEY(A, i, k)
+START
+  // Increase the val of A[i} to k, and update A so that it remains as a max heap
+  A[i} <-- k
+  WHILE i > 1 AND A[parent(i)] < A[i]
+    swap A[i] with A[parent(i)]
+    i <-- parent(i)
+  ENDWHILE
+END
+```
+Number of swaps required is at most the depth of node i, which is O(log n), so the complexity of increase_key(A, i, x) is O(log n)
+
+```
+heap_sort(A):
+
+1. Build a max heap fr A, init A. heap_size <-- n
+2. Swap element A[A.heap_size] and A[1]
+3. Set A.heapsize <-- A.heapsize - 1
+4. Run max_heapify(A, 1) to fix violation at the root
+5. Go to step 2
+
+BUILD_MAX_HEAP(A):
+START
+  A.heap_size <-- A.length        O(1)
+  FOR i = [A.length / 2] to 1:  max of 60n steps = O(n) steps
+    Call: MAX_HEAPIFY(A, i)
+  ENDFOR
+END
+
+MAX_HEAPIFY(A, i):
+START
+m <-- index of largest among A[i], A[left(i)], A[right(i)]
+If m != i THEN
+  Swap A[i] and A[m];
+  Call: MAX_HEAPIFY(A, m);
+END
+```
+
+Goal: correct the violation of the max-heap property at node i
+
+Priority Queue is an abstract data type (ADT) that consists of a set S of elements, where every element having an associated key, tgt with operations on S: max, insert, extract_max, increase_key
+
+```
+EXTRACTMAX(A)
+START
+  // Assumption: A.heap_size > 0
+  // Goal: Return element with the largest key and remove it from A, then update A so that it remains as a max heap.
+  
+  max <-- A[1]
+  A[1] <-- A[A.heap_size]
+  A.heap_size <-- A.heap_size -1
+  Call: MAX_HEAPIFY(A, 1)
+  return max
+END
+```
+
+h = height of node i <= height of max heap = depth of max heap = [log_2(n)]
+
+max_heap(A) = 15 * (h + 1)
+
+### Intro to Algo 3-3
+```
+heap_sort(A):
+1. Build a max heap fr A, init A. heap_size <-- n
+2. Swap element A[A.heap_size] and A[1]
+3. Set A.heapsize <-- A.heapsize - 1
+4. Run max_heapify(A, 1) to fix violation at the root
+5. Go to step 2
+
+BUILD_MAX_HEAP(A):
+START
+  A.heap_size <- A.length        O(1)
+  FOR i from [A.length / 2] to 1  max of 60n steps = O(n) steps
+    Call: MAX_HEAPIFY(A, i)
+  ENDFOR
+END
+
+MAX_HEAPIFY(A, i)
+START
+  m <-- index of largest among A[i], A[left(i)], A[right(i)]
+  IF m != i, THEN
+    Swap A[i] and A[m];
+    Call: MAX_HEAPIFY(A, m);
+  ENDIF
+END
+```
+Goal: correct the violation of the max-heap property at node i
+
+Priority Queue is an abstract data type (ADT) that consists of a set S of elements, where every element having an associated key, tgt with operations on S: max, insert, extract_max, increase_key
+
+```
+EXTRACT_MAX(A)
+Assumption: A.heap_size > 0
+Goal: Return element with the largest key and remove it from A, then update A so that it remains as a max heap.
+
+START
+  max <-- A[1]
+  A[1] <-- A[A.heap_size]
+  A.heap_size <-- A.heap_size -1
+  Call: MAX_HEAPIFY(A, 1)
+  return max
+END
+```
+h = height of node i <= height of max heap = depth of max heap = [log_2(n)]
+
+max_heap(A) = 15 * (h + 1)

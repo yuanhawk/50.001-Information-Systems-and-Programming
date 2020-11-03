@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/674960/c3c7959c04094769b99157f6eaf6c194
+bundleId: https://api.rpubs.com/api/v1/document/674960/c3c7959c04094769b99157f6eaf6c194
+url: http://rpubs.com/yuanhawk/674960
+when: 1602634536.73583

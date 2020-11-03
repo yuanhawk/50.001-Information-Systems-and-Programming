@@ -11,9 +11,9 @@
 
 <meta name="author" content="Tan Li Yuan" />
 
-<meta name="date" content="2020-10-13" />
+<meta name="date" content="2020-10-14" />
 
-<title>Week 1</title>
+<title>Week 3</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -424,81 +424,247 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Week 1</h1>
+<h1 class="title toc-ignore">Week 3</h1>
 <h4 class="author">Tan Li Yuan</h4>
-<h4 class="date">10/13/2020</h4>
+<h4 class="date">10/14/2020</h4>
 
 </div>
 
 
-<div id="intro-to-algo-lecture-1-2" class="section level3">
-<h3>Intro to Algo Lecture 1-2</h3>
-<p>Input space –&gt; set of possible input<br> Output space –&gt; set of possible output<br> Input instance –&gt; part input of a problem instance</p>
-<p>Good algo –&gt; <span class="math inline">\(T\)</span>(n) time complexity, should increase “slowly”,</p>
-<p><span class="math inline">\(T\)</span>(n) - steps to solve problem, n - num of inputs</p>
-<p><span class="math inline">\(\Theta\)</span> - grows asymptotically = (equals)<br> O - grows asymptotically &lt;= (at most)</p>
-<p>n<sup>3</sup> &lt;= n<sup>3000000</sup> f(n) = <span class="math inline">\(O\)</span>(g(n))</p>
-<p><span class="math inline">\(\Omega\)</span> - grows asymptotically &gt;= (at least)</p>
-<p>n<sup>999999</sup> &gt;= n<sup>2</sup> f(n) = <span class="math inline">\(\Omega\)</span>(g(n))</p>
-<p><span class="math inline">\(\Omega\)</span> dominant<br> <span class="math inline">\(O\)</span> less dominant<br> <span class="math inline">\(\Theta\)</span> = <span class="math inline">\(O\)</span> &amp; <span class="math inline">\(\Omega\)</span></p>
-<p>n log<sub>2</sub> n &lt;= n<sub>2</sub><br> log<sub>2</sub> n &lt;= n</p>
+<div id="intro-to-algo-lecture-3-1" class="section level3">
+<h3>Intro to Algo Lecture 3-1</h3>
+<p>What is a heap?</p>
+<p>Master theorem - recursive algorithm A, determine the algorithmic complexity<br> <span class="math inline">\(T\)</span>(n) = number of steps that A take to run an input of size n</p>
+<p>Levels of a recusive algo<br> Run “awesome” function</p>
+<p><span class="math inline">\(T\)</span>(n) - number of steps A takes to run an input of size n<br> f(n) - number of steps taken in the first lvl of recursion</p>
+<p>How to use master theorem?<br> Figure out the recurrence relation<br> <span class="math inline">\(T\)</span>(n) = aT(n/b) + f(n)</p>
+<p>a - number of sublist b - size of sublist</p>
+<p>Case 1:</p>
+<blockquote>
+<p><span class="math inline">\(O\)</span>(n<sup>log<sub>b</sub>(a)</sup> - <span class="math inline">\(\epsilon\)</span>)<br> <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(\Theta\)</span>(n<sup>log<sub>b</sub>(a)</sup>)</p>
+</blockquote>
+<p>Case 2:</p>
+<blockquote>
+<p><span class="math inline">\(\Theta\)</span>(n<sup>log<sub>b</sub>(a)</sup>)<br> <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(\Theta\)</span>(n<sup>log<sub>b</sub>(a)</sup>)</p>
+</blockquote>
+<p>Case 3:</p>
+<blockquote>
+<p><span class="math inline">\(\Omega\)</span>(n<sup>log<sub>b</sub>(a)</sup> + <span class="math inline">\(\epsilon\)</span>)<br> if af(n/b) &lt;= cf(n) for some constant c &lt; 1 and all sufficiently large n, then we conclude <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(\Omega\)</span>(f(n))<br> Otherwise, the case is inconclusive</p>
+</blockquote>
+<p>Note: height = log<sub>b</sub>(n) = <span class="math inline">\(\Theta\)</span>(log n)*, #leaves = a<sup>log<sub>b</sub>(n)</sup> = n<sup>log<sub>b</sub>(a)</sup></p>
+<p>Example 1:</p>
+<blockquote>
+<p><span class="math inline">\(T\)</span>(n) = 2 <span class="math inline">\(T\)</span>(n/2) + log n<br><br> f(n) = <span class="math inline">\(O\)</span>(n<sup>log<sub>b</sub>(a)</sup> - <span class="math inline">\(\epsilon\)</span>) = <span class="math inline">\(O\)</span>(n<sup>1</sup> - <span class="math inline">\(\epsilon\)</span>)<br> log n = <span class="math inline">\(O\)</span>(n<sup>1</sup> - <span class="math inline">\(\epsilon\)</span>)<br> Yes, so master theorem says that T(n) = theta(n)</p>
+</blockquote>
+<p>Example 2:</p>
+<blockquote>
+<p><span class="math inline">\(T\)</span>(n) = 5 <span class="math inline">\(T\)</span>(n/5) + n<br> height = log<sub>5</sub>(n), #leaves = n^log<sub>5</sub>(5) = n<br><br> f(n) = <span class="math inline">\(\Theta\)</span>(n log<sub>b</sub>(a)). so <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(\Theta\)</span>(n<sup>log<sub>b</sub>(a)</sup> log n) = <span class="math inline">\(\Theta\)</span>(n log n)</p>
+</blockquote>
+<p>Example 3:</p>
+<blockquote>
+<p><span class="math inline">\(T\)</span>(n) = 9<span class="math inline">\(T\)</span>(n/3) + n<sup>3</sup><br> height = log<sub>3</sub>(n), #leaves = n<sup>log<sub>3</sub>(9)</sup> = n<sup>2</sup><br><br> f(n) = <span class="math inline">\(\Omega\)</span>(n<sup>2</sup> - <span class="math inline">\(\epsilon\)</span>)<br> 9f(n/3) = 1/3n<sup>3</sup> &lt;= 1/2 n<sup>3</sup> = 1/2 f(n)<br><br> Master theorem says that <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(\Theta\)</span>(f(n)) = <span class="math inline">\(\Theta\)</span>(n<sup>3</sup>)</p>
+</blockquote>
+<p>Data type vs abstract data type<br> Matrix data type ignores the specific implementation of associated operations</p>
+<p>Abstract data type is an abstract mathematical model for objects of a certain type of data, tgt with operations on such objects</p>
+<p>Data structures - format to store and organize data, in order to facilitate access and modifications<br> Use a data structure to implement a data type or ADT</p>
+<p>Matrix - 2D array or a list of lists, build new data structures</p>
+<p>Heap - data structure, store &amp; organize data, in order to facilitate access and modification<br> Heaps are built fr array data structure<br> Heaps are NOT arrays</p>
+<p>Operations associated to the heap are called heap operations<br> Implement priority queue - an abstract data type (ADT) that consists of a set S of elements</p>
+<p>Every element of S has an associated key, interpreted as “priority score”<br> max: return element with largest key<br> insert: insert element x<br> extract_max: return &amp; extract element with the largest key<br> increase_key: increase val of key of element x to the new value k<br></p>
+<p>Priority queue<br> (Array 1): Store the element of S in the order they arrive<br> (Array 2): Store the elements of S insertion in descending order</p>
+<p>Heap can be visualized as a nearly complete binary tree<br> A binary tree is a tree in which every node has at most children</p>
+<p>The top node is called the root<br> The nodes below are called the children of node x</p>
+<p>A node with no children is called a leaf</p>
+<p>In all levels, except the last level, every node has 2 children</p>
+<p>Are pointers needed. A[1] is the 1st element</p>
+<p>Max heap: the key of every node is &gt;= to the keys of its children<br> Min heap: the key of every node is &lt;= to the keys of its children</p>
+<p>Other kinds of heaps:<br> Ternary/d-ary heaps: at most 3/m children</p>
+<p>Binary max heaps: negate all keys could give the opposite min or max</p>
+<p>Depth of a node x in a binary tree is the number of edges in the downward path from the root to node x</p>
+<p>Depth is a binary tree is the max value among the depths of all nodes in the binary tree</p>
+<p>Depth of a heap is the dpeth of the binary tree corresponding to the heap</p>
+<p>Height of a node is the max possible number of edges in a downward path fr the node x to a leaf</p>
+<p>Root of tree: first element in the array, corresponding to index i = 1<br> parent(i) = [i/2] -&gt; parent(5) = 2 (floor)<br> left(i) = 2i, right(i) = 2i + 1</p>
+<p>No pointers required to implement a heap<br> Depth of a binary heap with n element is log<sub>2</sub>(n)<br> log<sub>2</sub>(10) = 3.3 = 3<br> Depth of heap = <span class="math inline">\(\Theta\)</span>(log n)<br> Depth of node = <span class="math inline">\(O\)</span>(log n)</p>
+<div id="operations-on-heaps" class="section level4">
+<h4>Operations on heaps</h4>
+<p>build_max_heap: Build a max-heap from an unordered input array. Complexity: <span class="math inline">\(O\)</span>(n)<br> max_heapify: Correct a single violation of the max heap property occuring at the root of an input sub-tree. Complexity: <span class="math inline">\(O\)</span>(log n)<br> insert: insert element into array: array must remain as a max heap. Complexity: <span class="math inline">\(O\)</span>(log n)<br> extract_max: Return element with the largest key and remove from array; array must remain as a max heap. Complexity: <span class="math inline">\(O\)</span>(log n)<br> increase_key: Increase key values of node with given input index; array must remain as a max heap. Complexity: <span class="math inline">\(O\)</span>(log n)<br> heapsort: Sort an array of length n using a heap.<br> Complexity: <span class="math inline">\(O\)</span>(n log n)</p>
 </div>
-<div id="intro-to-algo-lecture-1-3" class="section level3">
-<h3>Intro to Algo Lecture 1-3</h3>
-<p>Code</p>
-<pre><code>IF a%3 == 0 THEN
-    print &quot;OH YEAH&quot;
-ENDIF
+</div>
+<div id="intro-to-algo-lecture-3-2" class="section level3">
+<h3>Intro to Algo Lecture 3-2</h3>
+<p>Heap operations<br> Heap-sort algo</p>
+<p>i/p? assumptions for our i/p<br> o/p?<br> mods to i/p?</p>
+<p>Make mods to i/p array<br> Make extract_max - return element with largest key &amp; remove fr array; array must remain as a max heap</p>
+<p>How to “heapify” an array<br> Given an array that violates the max-heap property, how do we modify the array into a heap</p>
+<p>Node i violates the max-heap property (for nearly complete binary tree visualization)<br> Key of every node &gt;= keys of its children (if any)</p>
+<p>Node can hv a left child</p>
+<p>Children of node i, tgt with all nodes below, do not violate the max-heap property<br> Sub-trees rooted at nodes left(i) and right(i): 2i, 2i + 1</p>
+<p>Correct the violation of the max-heap</p>
+<p>A[i] is strictly smaller than &gt;= 1 of A[left(i)] or A[right(i)]</p>
+<p>Heapify by “trickling” element A[i] down the tree, making the subtree rooted at the new node i correspond to heap-tree</p>
+<pre><code>MAX_HEAPIFY(A, 2) - Array A, 2 children
+START
+  // Swap with the larger child key
+  // Input array A has an attribute called heap_size
+  // Init A.heap_size &lt;- A.length
+  // Set A.heap_size &lt;- k on the first k elements of the array.
+  
+  l &lt;-- left(i) // 2i
+  r &lt;-- right(i) // 2i + 1
+  
+  // l, r are indexes
+  
+  // Check which is the largest index
+  IF l &lt;= heap_size(A), last index of A and A[l] &gt; A[i] THEN
+    largest &lt;-- l
+  ELSE
+    largest &lt;-- i
+  ENDIF
+  
+  IF r &lt;= heap-size(A) AND A[r] &gt; A[largest] THEN
+    largest &lt;-- r
+  ENDIF
+  
+  IF largest != i THEN // violation of max-heap property
+    exchange A[i] and A[largest]
+    call: MAX_HEAPIFY(A, largest)
+  ENDIF
+END</code></pre>
+<pre><code>BUILDMAXHEAP(A)
+START
+// Correct violations of Max_Heap property
+// Nodes[n/2] + 1, ..., n must be leaves of the tree
+// Since 2i &gt; n for all i &gt;= [n/2] + 1
+// if 2i &gt; n, then node i has no left child (which must have index 2i)
+// max-heap property can only be violated at 1, ..., n/2
 
-IF a / 3 THEN
-    print &quot;OH YEAH&quot;
-ENDIF
-
-PRINT &quot;GREAT&quot;</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(1)</p>
-<pre><code>FOR i from 0 to 5
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(1) –&gt; 5 is a constant, so we ignore in this case</p>
-<pre><code>FOR i from 0 to n
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(n)</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to n
-    PRINT &quot;GREAT&quot;
-  ENDFOR
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
-<p>Typically a double for loop will result in a <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>) time complexity, each for loop will iterate from 0 to n, thus <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>). So iterating a double for loop, will give <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>).</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to n
-    PRINT &quot;GREAT&quot;
-  ENDFOR
+A.heap_size &lt;- A.length
+FOR i = length[A] /2 to 1
+  call: MAXHEAPIFY(A, i)
 ENDFOR
+END</code></pre>
+<p>Complexity = <span class="math inline">\(O\)</span>(n): Line 1 = <span class="math inline">\(O\)</span>(1), Line 2 (entire for loop) = <span class="math inline">\(O\)</span>(n)</p>
+<p>max_heapify(A, 5), no changes<br> max_heapify(A, 4), swap 4 and 8<br> max_heapify(A, 3) swap 3 and 7<br> max_heapify(A, 2) swap 2 and 5<br> max_heapify(A, 5) swap 5 and 10<br> max_heapify(A, 1) swap 1 and 2<br> max_heapify(A, 2) swap 2 and 4<br> max_heapify(A, 4) swap 4 and 8</p>
+<p>Algorithmic complexity<br> <span class="math inline">\(T\)</span>(n) = <span class="math inline">\(O\)</span>(n)</p>
+<p>Insertion sort</p>
+<pre><code>last &lt;-- A.length
+Find max element A[i] of array A[1...last ele];     theta(n), expensive step
+Swap A[i] and A[last]
+last_el &lt;- last_el - 1
+Go to step 2</code></pre>
+<p>Heapify array</p>
+<ol style="list-style-type: decimal">
+<li>Build a max heap fr A, A.heap_size is init with n</li>
+<li>Find max element A[1]</li>
+<li>Swap elements A[A.heap_size] and A[1]</li>
+<li>Discard node n from the heap (setting A.heapsize &lt;- A.heapsize - 1)</li>
+<li>new root may violate max-heap property, but the children are the roots of sub-trees that are max-heap property at the new root</li>
+<li>Go to step 2</li>
+</ol>
+<p>I/p: array A of len(n)<br></p>
+<ul>
+<li>Every iteration (Steps 2 - 5). Heap_size decreases by 1</li>
+<li>After n iterations, the heap size of A becomes 0</li>
+<li>Every iteration involves a swap and a max_heapify</li>
+<li>Each swap has complexity of <span class="math inline">\(O\)</span>(1)</li>
+<li><ul>
+<li>Each max_heapy has complexity <span class="math inline">\(O\)</span>(log n)</li>
+</ul></li>
+<li>heap-sort <span class="math inline">\(O\)</span>(n log n)</li>
+</ul>
+<p>insert(A, x)<br> Insert x at the last node (leaf)<br> Compare it with the parent node n check if max heap property is violated</p>
+<p>Number of swaps is at most the depth of the binary heap, which is O(log n)</p>
+<p>extract_max(A)<br> move key of last node to the root node<br> Then do swaps to fulfill max heap property max_heapify O(log n)</p>
+<pre><code>INCREASEKEY(A, i, k)
+START
+  // Increase the val of A[i} to k, and update A so that it remains as a max heap
+  A[i} &lt;-- k
+  WHILE i &gt; 1 AND A[parent(i)] &lt; A[i]
+    swap A[i] with A[parent(i)]
+    i &lt;-- parent(i)
+  ENDWHILE
+END</code></pre>
+<p>Number of swaps required is at most the depth of node i, which is O(log n), so the complexity of increase_key(A, i, x) is O(log n)</p>
+<pre><code>heap_sort(A):
 
-FOR i from k to n
-  PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p><span class="math inline">\(T\)</span>(n) = n<sup>2</sup> + n (n<sup>2</sup> is dominant)<br> <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
-<pre><code>FOR i from 0 to sqrt(n)
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p><span class="math inline">\(\Theta\)</span>(<span class="math inline">\(\sqrt{n}\)</span>)</p>
-<pre><code>FOR i from 0 to sqrt(n)
-  FOR j from 0 to sqrt(n)
-      PRINT &quot;GREAT&quot;
-    ENDFOR
-ENDFOR</code></pre>
-<p><span class="math inline">\(\Theta\)</span>(<span class="math inline">\(\sqrt{n}\)</span> * <span class="math inline">\(\sqrt{n}\)</span>) = <span class="math inline">\(\Theta\)</span>(n)</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to i
-      PRINT &quot;hi&quot;
-    ENDFOR
-ENDFOR</code></pre>
-<p>i = 0: print <span class="math inline">\(\times\)</span> 1<br> i = 1: print <span class="math inline">\(\times\)</span> 2<br> …<br> i = n - 1: print <span class="math inline">\(\times\)</span> n-1</p>
-<p>T(n) = 1+2+3+…+(n-1) = <span class="math inline">\(\frac{n(n-1)}{2}\)</span></p>
-<p><span class="math inline">\(\Theta\)</span>(n*(n+1)) = <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
+1. Build a max heap fr A, init A. heap_size &lt;-- n
+2. Swap element A[A.heap_size] and A[1]
+3. Set A.heapsize &lt;-- A.heapsize - 1
+4. Run max_heapify(A, 1) to fix violation at the root
+5. Go to step 2
+
+BUILD_MAX_HEAP(A):
+START
+  A.heap_size &lt;-- A.length        O(1)
+  FOR i = [A.length / 2] to 1:  max of 60n steps = O(n) steps
+    Call: MAX_HEAPIFY(A, i)
+  ENDFOR
+END
+
+MAX_HEAPIFY(A, i):
+START
+m &lt;-- index of largest among A[i], A[left(i)], A[right(i)]
+If m != i THEN
+  Swap A[i] and A[m];
+  Call: MAX_HEAPIFY(A, m);
+END</code></pre>
+<p>Goal: correct the violation of the max-heap property at node i</p>
+<p>Priority Queue is an abstract data type (ADT) that consists of a set S of elements, where every element having an associated key, tgt with operations on S: max, insert, extract_max, increase_key</p>
+<pre><code>EXTRACTMAX(A)
+START
+  // Assumption: A.heap_size &gt; 0
+  // Goal: Return element with the largest key and remove it from A, then update A so that it remains as a max heap.
+  
+  max &lt;-- A[1]
+  A[1] &lt;-- A[A.heap_size]
+  A.heap_size &lt;-- A.heap_size -1
+  Call: MAX_HEAPIFY(A, 1)
+  return max
+END</code></pre>
+<p>h = height of node i &lt;= height of max heap = depth of max heap = [log_2(n)]</p>
+<p>max_heap(A) = 15 * (h + 1)</p>
+</div>
+<div id="intro-to-algo-3-3" class="section level3">
+<h3>Intro to Algo 3-3</h3>
+<pre><code>heap_sort(A):
+1. Build a max heap fr A, init A. heap_size &lt;-- n
+2. Swap element A[A.heap_size] and A[1]
+3. Set A.heapsize &lt;-- A.heapsize - 1
+4. Run max_heapify(A, 1) to fix violation at the root
+5. Go to step 2
+
+BUILD_MAX_HEAP(A):
+START
+  A.heap_size &lt;- A.length        O(1)
+  FOR i from [A.length / 2] to 1  max of 60n steps = O(n) steps
+    Call: MAX_HEAPIFY(A, i)
+  ENDFOR
+END
+
+MAX_HEAPIFY(A, i)
+START
+  m &lt;-- index of largest among A[i], A[left(i)], A[right(i)]
+  IF m != i, THEN
+    Swap A[i] and A[m];
+    Call: MAX_HEAPIFY(A, m);
+  ENDIF
+END</code></pre>
+<p>Goal: correct the violation of the max-heap property at node i</p>
+<p>Priority Queue is an abstract data type (ADT) that consists of a set S of elements, where every element having an associated key, tgt with operations on S: max, insert, extract_max, increase_key</p>
+<pre><code>EXTRACT_MAX(A)
+Assumption: A.heap_size &gt; 0
+Goal: Return element with the largest key and remove it from A, then update A so that it remains as a max heap.
+
+START
+  max &lt;-- A[1]
+  A[1] &lt;-- A[A.heap_size]
+  A.heap_size &lt;-- A.heap_size -1
+  Call: MAX_HEAPIFY(A, 1)
+  return max
+END</code></pre>
+<p>h = height of node i &lt;= height of max heap = depth of max heap = [log_2(n)]</p>
+<p>max_heap(A) = 15 * (h + 1)</p>
 </div>
 
 

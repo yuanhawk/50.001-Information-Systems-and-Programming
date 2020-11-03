@@ -11,9 +11,9 @@
 
 <meta name="author" content="Tan Li Yuan" />
 
-<meta name="date" content="2020-10-13" />
+<meta name="date" content="2020-10-31" />
 
-<title>Week 1</title>
+<title>Week4</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -424,81 +424,163 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Week 1</h1>
+<h1 class="title toc-ignore">Week4</h1>
 <h4 class="author">Tan Li Yuan</h4>
-<h4 class="date">10/13/2020</h4>
+<h4 class="date">10/31/2020</h4>
 
 </div>
 
 
-<div id="intro-to-algo-lecture-1-2" class="section level3">
-<h3>Intro to Algo Lecture 1-2</h3>
-<p>Input space –&gt; set of possible input<br> Output space –&gt; set of possible output<br> Input instance –&gt; part input of a problem instance</p>
-<p>Good algo –&gt; <span class="math inline">\(T\)</span>(n) time complexity, should increase “slowly”,</p>
-<p><span class="math inline">\(T\)</span>(n) - steps to solve problem, n - num of inputs</p>
-<p><span class="math inline">\(\Theta\)</span> - grows asymptotically = (equals)<br> O - grows asymptotically &lt;= (at most)</p>
-<p>n<sup>3</sup> &lt;= n<sup>3000000</sup> f(n) = <span class="math inline">\(O\)</span>(g(n))</p>
-<p><span class="math inline">\(\Omega\)</span> - grows asymptotically &gt;= (at least)</p>
-<p>n<sup>999999</sup> &gt;= n<sup>2</sup> f(n) = <span class="math inline">\(\Omega\)</span>(g(n))</p>
-<p><span class="math inline">\(\Omega\)</span> dominant<br> <span class="math inline">\(O\)</span> less dominant<br> <span class="math inline">\(\Theta\)</span> = <span class="math inline">\(O\)</span> &amp; <span class="math inline">\(\Omega\)</span></p>
-<p>n log<sub>2</sub> n &lt;= n<sub>2</sub><br> log<sub>2</sub> n &lt;= n</p>
+<div id="intro-to-algo-4-1" class="section level3">
+<h3>Intro to Algo 4-1</h3>
+<p>Intro to Algo 4 - 1</p>
+<p>Binary Search Trees (BST)</p>
+<p>A (binary) heap is a data structure whose data storage format can be visualized as a binary tree</p>
+<p>This binary tree must be nearly complete, i.e. all possible nodes in level must be “filled”, before the next level has any nodes</p>
+<p>(Your parent must have 2 children, if not you cannot have child)</p>
+<p>graph theory</p>
+<p>Types of heaps: max heap Max-heap property: key of every node &gt;= keys of its children(if any) Min-heap property: … &lt;= …</p>
+<p>d-ary trees d &gt;= 2 root, parent, ancestors, descendants</p>
+<p>BST - data structure whose data storage format can be visualized as a binary tree</p>
+<p>bst need not be nearly complete</p>
+<p>This tree is still binary! Every node has at most 2 children</p>
+<p>Data can be stored as an array or a linkedlist</p>
+<p>Every node must have 4 attributes: x.left, x.right, x.parent, x.key<br> attribute values - real vals</p>
+<p>if x is the root, then x.parent = NIL, if y has no right child, then y.right = NIL</p>
+<p>BST must satisfy:</p>
+<p>if x.left != NIL, y.key &lt;= x.key<br> x.right != NIL, x.key &lt;= z.key</p>
+<p>y.key &lt;= x.key &lt;= z.key</p>
+<p>x (parent), y (left child), z (right child)</p>
+<p>How to order the elements of a BST</p>
+<p>Tree traversals:<br> Pre-order FBADCEGIH<br> Traverse in the anti-clockwise order<br> Accessing the key vals in each node</p>
+<pre><code>Function PREORDER(node)
+  IF node = NIL, THEN
+      return
+  ENDIF
+  PRINT(node.key)
+  Call: PREORDER(node.left)
+  Call: PREORDER(node.right)
+ENDFunction</code></pre>
+<p>Running PREORDER(root node) will print the key vals of the nodes in pre-order.</p>
+<p>In-order (sorted order) ABCDEFGHI<br> Traverse in anti-clockwise order<br> When visiting an unrecorded node, record the node only if:<br> no left child / left child had been visited previously</p>
+<pre><code>Function INORDER(node):
+  IF node = NIL, THEN
+      return
+  ENDIF
+  Call: INORDER(node.left)
+  PRINT(node.key)
+  Call: INORDER(noderight)
+ENDFunction</code></pre>
+<p>Running inorder(root node) will print the key vals of the nodes in in-order</p>
+<p>Post-order Traverse in anti-clockewise order ACEDBHIGF<br> When visiting an unrecorded node, record the node only if:<br> it is a leaf / last time visiting it</p>
+<pre><code>Function postorder(node):
+  IF node = NIL, THEN
+      return
+  ENDIF
+  Call: POSTORDER(node.left)
+  Call: POSTORDER(node.right)
+  PRINT(node.key)
+ENDFunction</code></pre>
+<p>BST is a data structure –&gt; visualized as a bin tree, BST property is satisfied<br> A BST is allowed to be very “imbalanced” - not balanced</p>
+<p>unbalanced - unstable</p>
+<p>“balanced” BST called Adelson-Velskii and Landis (AVL) tree</p>
+<p>Similar to how heaps are used to implement priority queues &amp; sorting algo, BSTs can also be used to implement priority queues &amp; sorting algos</p>
+<p>Operations: tree_insert: Insert elements into BST must still be a BST after insertion <span class="math inline">\(O\)</span>(height of T)<br> tree_delete: Delete … <span class="math inline">\(O\)</span>(height of T)<br> tree_max: Given element x, return element with largest key val in subtree rooted at x <span class="math inline">\(O\)</span>(height of x)<br> tree_min: … smallest … <span class="math inline">\(O\)</span>(height of x)<br> tree_search: Given element x and a val k, return 1st of an element with a key val k in the subtree rooted at x, if it exists, otherwise return NIL O(height of T)</p>
+<p>x element of BST<br> left n right nodes to find key val k</p>
+<p>successor: Given element x, return the next element in the next element in the BST wrt the in-order<br> predecessor: … previous …</p>
+<pre><code>TREE_INSERT(T, x)&lt;br&gt;
+BST T, element x&lt;br&gt;
+Assumptions: x.key != NILL; x.left = x.right = NIL
+
+Function TREE_INSERT(T, x)
+  y &lt;-- Call: FIND_Y() // element in T that is available to be the parent of x (identify suitable parent of x)
+  x.parent &lt;-- y
+  IF T.root = NIL THEN (empty tree)
+      T.root &lt;-- x
+  ELSE IF x.key &lt; y.key
+      y.left &lt;-- x
+  ELSE
+      y.right &lt;-- x
+  ENDIF
+ENDFunction
+
+Function FIND_Y()
+  y &lt;-- NIL; z &lt;-- T.root (if T has &gt;= 1, T.root has element, else NIL)
+  WHILE z != NIL (z will be NIL, when z is a leaf)
+    y &lt;-- z (y being the root node of z, update y in the loop, y is the parent candidate for x)
+    IF x.key &lt; z.key THEN (the val of x will determine how deep we go fr the root into the BST) 
+        z &lt;-- z.left
+    ELSE
+        z &lt;-- z.right
+    ENDIF
+  ENDWHILE
+ENDFunction</code></pre>
 </div>
-<div id="intro-to-algo-lecture-1-3" class="section level3">
-<h3>Intro to Algo Lecture 1-3</h3>
-<p>Code</p>
-<pre><code>IF a%3 == 0 THEN
-    print &quot;OH YEAH&quot;
-ENDIF
-
-IF a / 3 THEN
-    print &quot;OH YEAH&quot;
-ENDIF
-
-PRINT &quot;GREAT&quot;</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(1)</p>
-<pre><code>FOR i from 0 to 5
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(1) –&gt; 5 is a constant, so we ignore in this case</p>
-<pre><code>FOR i from 0 to n
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(n)</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to n
-    PRINT &quot;GREAT&quot;
-  ENDFOR
-ENDFOR</code></pre>
-<p>code complexity = <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
-<p>Typically a double for loop will result in a <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>) time complexity, each for loop will iterate from 0 to n, thus <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>). So iterating a double for loop, will give <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>).</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to n
-    PRINT &quot;GREAT&quot;
-  ENDFOR
-ENDFOR
-
-FOR i from k to n
-  PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p><span class="math inline">\(T\)</span>(n) = n<sup>2</sup> + n (n<sup>2</sup> is dominant)<br> <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
-<pre><code>FOR i from 0 to sqrt(n)
-    PRINT &quot;GREAT&quot;
-ENDFOR</code></pre>
-<p><span class="math inline">\(\Theta\)</span>(<span class="math inline">\(\sqrt{n}\)</span>)</p>
-<pre><code>FOR i from 0 to sqrt(n)
-  FOR j from 0 to sqrt(n)
-      PRINT &quot;GREAT&quot;
-    ENDFOR
-ENDFOR</code></pre>
-<p><span class="math inline">\(\Theta\)</span>(<span class="math inline">\(\sqrt{n}\)</span> * <span class="math inline">\(\sqrt{n}\)</span>) = <span class="math inline">\(\Theta\)</span>(n)</p>
-<pre><code>FOR i from 0 to n
-  FOR j from 0 to i
-      PRINT &quot;hi&quot;
-    ENDFOR
-ENDFOR</code></pre>
-<p>i = 0: print <span class="math inline">\(\times\)</span> 1<br> i = 1: print <span class="math inline">\(\times\)</span> 2<br> …<br> i = n - 1: print <span class="math inline">\(\times\)</span> n-1</p>
-<p>T(n) = 1+2+3+…+(n-1) = <span class="math inline">\(\frac{n(n-1)}{2}\)</span></p>
-<p><span class="math inline">\(\Theta\)</span>(n*(n+1)) = <span class="math inline">\(\Theta\)</span>(n<sup>2</sup>)</p>
+<div id="intro-to-algo-4-2" class="section level3">
+<h3>Intro to Algo 4-2</h3>
+<p>More on Binary Search Trees</p>
+<p>a, b, c, d, e, f<br> 10, 12, 5, 1, 6, 7</p>
+<p>tree_insert(T, k)</p>
+<p>Return the largest/smallest key val<br></p>
+<pre><code>Function TREE_MAX(x)
+  WHILE x.right != NIL
+      x &lt;-- x.right
+  ENDWHILE
+  RETURN x
+ENDFunction</code></pre>
+<pre><code>Function TREE_MIN(x)
+  WHILE x.left != NIL
+      x &lt;-- x.left
+  ENDWHILE
+  RETURN x
+ENDFunction</code></pre>
+<p>Find the first instance of an element with key val k, else return NIL</p>
+<pre><code>Function TREE_SEARCH(x, k):
+  WHILE x != NIL and k != x.key
+      IF k &lt; x.key THEN
+          x &lt;-- x.left
+      ELSE
+          x &lt;-- x.right
+      ENDIF
+  ENDWHILE
+  RETURN x
+ENDFunction</code></pre>
+<p>Return the next element in BST wrt in-order</p>
+<pre><code>Function SUCCESSOR(x)
+  IF x.right != NIL THEN
+    RETURN TREE_MIN(x.right)
+  ENDIF
+  y &lt;-- x.parent
+  WHILE y != NIL and x = y.right
+      x &lt;-- y
+      y &lt;-- y.parent
+  ENDWHILE
+  RETURN y
+ENDFunction</code></pre>
+<p>successor(g) = a</p>
+<p>Return the previous element in BST wrt in-order</p>
+<pre><code>Function PREDECESSOR(x)
+  IF x.left != NIL THEN
+      RETURN TREE_MAX(x.left)
+  ENDIF
+  y &lt;-- x.parent
+  WHILE y != NIL and x = y.left
+      x &lt;-- y
+      y &lt;-- y.parent
+  ENDWHILE
+  RETURN y
+ENDFunction
+</code></pre>
+<p>successor(x): Given element x, return the next element in the BST wrt the in-order. <span class="math inline">\(O\)</span>(depth of x)<br> predecessor(x): …, return the previous … <span class="math inline">\(O\)</span>(depth of x)</p>
+<p>Delete element x so that the BST property still holds<br> TREE_DELETE(T, x)<br> Case 1: x is a leaf &gt; remove x<br> Case 2: x has exactly 1 child <br> Case 2a: left child<br> Case 2b: right child<br> If we “promote” the child of x to replace x, the BST property still holds.<br> If x = z.left, then z.left &lt;– y OR If z = z.right, then z.right &lt;– y<br> y.parent &lt;– z</p>
+<p>Case 3: x has exactly 2 children<br> z to be the suitable replacement for x, chosen form among the descendants of x</p>
+<p>elements at z-subtree &gt;= y-subtree</p>
+<p>Case 3a: x.right has no left child<br> “promote” x.right to replace x, shift x.left to be the child of x</p>
+<p>Case 3b: x.right has a left child<br> Let y = successor(x), x’ = x.right, and y’ = y.right<br> “promote” y, “promote” y.right node (-subtree) to previous y position</p>
+<ol style="list-style-type: decimal">
+<li><p>successor(z), z is the last element in the in-order<br> successor(z) = NIL<br> z is the input, last element (tree_max), most right, so z.right = NIL, returns NIL</p></li>
+<li><p>tree_insert(T, x). Why is there an assumption x.left = x. right = NIL<br> If there is an existing child, the fulfillment of BST would require all the child nodes of x to be checked, and this might not be fulfilled.</p></li>
+</ol>
 </div>
 
 

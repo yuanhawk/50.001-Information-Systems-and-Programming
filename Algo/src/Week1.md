@@ -5,15 +5,15 @@ date: "10/13/2020"
 output: html_document
 ---
 
-### Intro to Algo Lecture 2
+### Intro to Algo Lecture 1-2
 
 Input space --> set of possible input<br>
 Output space --> set of possible output<br>
 Input instance --> part input of a problem instance
 
-Good algo --> T(n)  time complexity, should increase "slowly",
+Good algo --> $T$(n)  time complexity, should increase "slowly",
 
-T(n) - steps to solve problem, n - num of inputs
+$T$(n) - steps to solve problem, n - num of inputs
 
 $\Theta$ - grows asymptotically = (equals)<br>
 O - grows asymptotically <= (at most)
@@ -34,7 +34,7 @@ $\Theta$ = $O$ & $\Omega$
 n log~2~ n <= n~2~<br>
 log~2~ n <= n
 
-### Intro to Algo Lecture 3
+### Intro to Algo Lecture 1-3
 
 Code
 ```
