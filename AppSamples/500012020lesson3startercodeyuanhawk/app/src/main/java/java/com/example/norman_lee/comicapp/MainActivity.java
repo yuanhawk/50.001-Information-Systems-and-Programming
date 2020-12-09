@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
-import java.com.example.norman_lee.comicapp.databinding.ActivityMainBinding;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
@@ -32,29 +31,29 @@ public class MainActivity extends AppCompatActivity {
     final String ERROR_BAD_JSON = "Bad JSON Response";
     final String ERROR_HTTPS_ERROR = "HTTPS Error";
 
-    private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
         //TODO 6.0 Study the Utils class and see what methods are available for you
         //TODO 6.1 Ensure that Android Manifest has permissions for internet and has orientation fixed
         //TODO 6.2 Get references to widgets
+        editTextComicNo = findViewById(R.id.editTextComicNo);
+        textViewTitle = findViewById(R.id.textViewTitle);
+        imageViewComic = findViewById(R.id.imageViewComic);
 
         //TODO 6.3 Set up setOnClickListener for the button
-        binding.buttonGetComic.setOnClickListener(v -> {
+        findViewById(R.id.buttonGetComic).setOnClickListener(v -> {
             //TODO 6.4 Retrieve the user input from the EditText
-            comicNo = String.valueOf(binding.editTextComicNo.getText()).trim();
+            comicNo = String.valueOf(editTextComicNo.getText()).trim();
 
             //TODO 6.5 - 6.9 Modify GetComic below
 
 
             //TODO 6.10 If network is active, instantiate GetComic and call the execute method
             if (Utils.isNetworkAvailable(this))
-                new GetComic(binding.textViewTitle, binding.imageViewComic).execute(comicNo);
+                new GetComic(textViewTitle, imageViewComic).execute(comicNo);
         });
 
     }
