@@ -8,7 +8,7 @@ public class ExchangeRate {
 
     private BigDecimal exchangeRate;
     private static String defaultRate = "2.95000";
-    private static final int DEFAULT_PRECISION = 5;
+    private static final int DEFAULT_PRECISION = 2;
     private int precision = DEFAULT_PRECISION;
     private MathContext mathContext;
 

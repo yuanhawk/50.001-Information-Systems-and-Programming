@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/50001-2020-lesson2startercode-yuanhawk.iml" filepath="$PROJECT_DIR$/.idea/modules/50001-2020-lesson2startercode-yuanhawk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/50001-2020-lesson2startercode-yuanhawk.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/50001-2020-lesson2startercode-yuanhawk.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/500012020lesson2startercodeyuanhawk.iml" filepath="$PROJECT_DIR$/.idea/modules/500012020lesson2startercodeyuanhawk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/500012020lesson2startercodeyuanhawk.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/500012020lesson2startercodeyuanhawk.app.iml" />
     </modules>
   </component>
 </project>
