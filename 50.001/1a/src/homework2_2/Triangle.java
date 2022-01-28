@@ -1,6 +1,6 @@
 package homework2_2;
 
-public class Triangle {
+public class Triangle extends GeometricObject {
     private double side1 = 1.0;
     private double side2 = 1.0;
     private double side3 = 1.0;
